@@ -43,8 +43,15 @@ export interface UseRadioProps {
   isChecked?: boolean
   /**
    * If `true`, the radio will be initially checked.
+   *
+   * @deprecated Please use `defaultChecked` which mirrors the default prop
+   * name for radio elements.
    */
   defaultIsChecked?: boolean
+  /**
+   * If `true`, the radio will be initially checked.
+   */
+  defaultChecked?: boolean
   /**
    * If `true`, the radio will be disabled
    */
@@ -75,6 +82,7 @@ export interface UseRadioProps {
 export function useRadio(props: UseRadioProps = {}) {
   const {
     defaultIsChecked,
+    defaultChecked = defaultIsChecked,
     isChecked: isCheckedProp,
     isFocusable,
     isDisabled,
@@ -94,7 +102,7 @@ export function useRadio(props: UseRadioProps = {}) {
 
   const ref = useRef<HTMLInputElement>(null)
 
-  const [isCheckedState, setChecked] = useState(Boolean(defaultIsChecked))
+  const [isCheckedState, setChecked] = useState(Boolean(defaultChecked))
 
   const [isControlled, isChecked] = useControllableProp(
     isCheckedProp,
